@@ -107,14 +107,13 @@ const EditEmployee = ({ params }) => {
 
       const responseData = await res.json();
       if (responseData.error) {
-        toast.error(responseData.error);
+        console.error(responseData.error);
       } else {
         toast.success(responseData.message);
         router.push("/employee");
       }
     } catch (error) {
       console.error("Error updating employee:", error);
-      toast.error("An error occurred.");
     } finally {
       setLoading(false);
     }

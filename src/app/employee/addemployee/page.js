@@ -86,7 +86,7 @@ const AddEmployee = () => {
       }
     } catch (error) {
       console.error("Error submitting the form:", error);
-      alert("There was an error submitting the form.");
+      ("There was an error submitting the form.");
     } finally {
       setLoading(false);
     }

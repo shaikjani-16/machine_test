@@ -43,15 +43,12 @@ const EmployeeList = () => {
       if (data) {
         const { message, error } = data; // Don't destructure 'status' if it's not part of the response
         console.log(data);
-        if (error) {
-          alert(error);
-        } else {
-          router.push("/");
-          getEmployeeList();
-          alert(message);
-          // Redirect or refresh the page
-          // Or use another approach to update the UI
-        }
+
+        router.push("/");
+        getEmployeeList();
+        alert(message);
+        // Redirect or refresh the page
+        // Or use another approach to update the UI
       } else {
         console.error("Unexpected response format", data);
       }
@@ -71,12 +68,8 @@ const EmployeeList = () => {
       const data = await res.json();
       const { message, error } = data;
 
-      if (error) {
-        alert(error);
-      } else {
-        alert(message);
-        getEmployeeList();
-      }
+      alert(message);
+      getEmployeeList();
     } catch (error) {
       console.error("Error deleting employee:", error);
     }
