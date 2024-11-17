@@ -19,5 +19,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/employee/:path*"], // Match root, login, and all employee-related paths
+  matcher: ["/", "/login", "/employee/:path*"],
 };

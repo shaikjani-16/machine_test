@@ -21,10 +21,7 @@ const schema = z.object({
     .array(z.enum(["MCA", "BCA", "BSC"]))
     .nonempty("At least one course must be selected"),
   image: z
-    .union([
-      z.instanceof(File), // Validate if it's an instance of File
-      z.undefined(), // Allow undefined for optional
-    ])
+    .union([z.instanceof(File), z.undefined()])
     .refine((file) => !file || file.size > 0, {
       message: "Image is required if provided",
     }),
@@ -59,7 +56,6 @@ const AddEmployee = () => {
         const formData = new FormData();
         formData.append("profile-image", data.image);
 
-        // Mock upload function (replace with actual service function)
         imageId = await uploadFile(formData);
       }
 

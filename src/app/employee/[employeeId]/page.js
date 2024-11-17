@@ -57,10 +57,9 @@ const EditEmployee = ({ params }) => {
       const data = await res.json();
       const employee = data.employee;
 
-      // Populate form with existing employee data
       setValue("name", employee.name);
       setValue("email", employee.email);
-      setValue("mobile", String(employee.mobile)); // Ensure mobile is a string
+      setValue("mobile", String(employee.mobile));
       setValue("designation", employee.designation);
       setValue("gender", employee.gender);
       setValue("course", [employee.course]);
@@ -97,7 +96,7 @@ const EditEmployee = ({ params }) => {
         body: JSON.stringify({
           name: data.name,
           email: data.email,
-          mobile: String(data.mobile), // Ensure mobile is a string
+          mobile: String(data.mobile),
           designation: data.designation,
           gender: data.gender,
           course: data.course[0],

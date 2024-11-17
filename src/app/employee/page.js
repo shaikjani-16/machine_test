@@ -20,7 +20,7 @@ const EmployeeList = () => {
       });
       const data = await res.json();
       setEmployee(data);
-      setFilteredEmployee(data); // Set filtered employee list initially to all employees
+      setFilteredEmployee(data);
     } catch (error) {
       console.error("Error fetching employee data:", error);
     } finally {
@@ -36,19 +36,15 @@ const EmployeeList = () => {
         },
       });
 
-      // Make sure to check if the response is successful
       const data = await res.json();
 
-      // Check if the response has the expected properties
       if (data) {
-        const { message, error } = data; // Don't destructure 'status' if it's not part of the response
+        const { message, error } = data;
         console.log(data);
 
         router.push("/");
         getEmployeeList();
         alert(message);
-        // Redirect or refresh the page
-        // Or use another approach to update the UI
       } else {
         console.error("Unexpected response format", data);
       }
@@ -111,11 +107,11 @@ const EmployeeList = () => {
         (emp) =>
           emp.name.toLowerCase().includes(value.toLowerCase()) ||
           emp.email.toLowerCase().includes(value.toLowerCase()) ||
-          (emp.mobile && emp.mobile.toString().includes(value)) // Convert mobile to string before using includes
+          (emp.mobile && emp.mobile.toString().includes(value))
       );
       setFilteredEmployee(filteredData);
     } else {
-      setFilteredEmployee(employee); // If search is cleared, show all employees
+      setFilteredEmployee(employee);
     }
   };
 
