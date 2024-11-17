@@ -2,15 +2,16 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ShowImage from "../components/image";
-
+import { useRouter } from "next/navigation";
 const EmployeeList = () => {
   const [employee, setEmployee] = useState([]);
   const [filteredEmployee, setFilteredEmployee] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortField, setSortField] = useState("name"); // Sorting field
-  const [sortOrder, setSortOrder] = useState("asc"); // Sorting order
-  const [searchTerm, setSearchTerm] = useState(""); // Search term
+  const [sortField, setSortField] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const router = useRouter();
   const getEmployeeList = async () => {
     try {
       setLoading(true);
@@ -24,6 +25,38 @@ const EmployeeList = () => {
       console.error("Error fetching employee data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+  const changeStatus = async (_id, status) => {
+    try {
+      const res = await fetch(`/api/employee/${_id}/${status}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      // Make sure to check if the response is successful
+      const data = await res.json();
+
+      // Check if the response has the expected properties
+      if (data) {
+        const { message, error } = data; // Don't destructure 'status' if it's not part of the response
+        console.log(data);
+        if (error) {
+          alert(error);
+        } else {
+          router.push("/");
+          getEmployeeList();
+          alert(message);
+          // Redirect or refresh the page
+          // Or use another approach to update the UI
+        }
+      } else {
+        console.error("Unexpected response format", data);
+      }
+    } catch (error) {
+      console.error("Error changing status:", error);
     }
   };
 
@@ -198,6 +231,9 @@ const EmployeeList = () => {
                         <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">
                           Action
                         </th>
+                        <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">
+                          Status
+                        </th>
                       </tr>
                     </thead>
 
@@ -214,6 +250,7 @@ const EmployeeList = () => {
                             course,
                             imageId,
                             createdAt,
+                            status,
                           } = item;
                           return (
                             <tr
@@ -254,14 +291,41 @@ const EmployeeList = () => {
                                 >
                                   Edit
                                 </Link>
-                              </td>
-                              <td className="px-3 py-4 text-sm font-medium text-right">
                                 <div
                                   className="text-red-600 cursor-pointer"
                                   onClick={() => deleteEmployee(_id)}
                                 >
                                   Delete
                                 </div>
+                              </td>
+                              <td className="px-3 py-4 text-sm font-medium text-right">
+                                {status === "Active" ? (
+                                  <div
+                                    className="text-red-600 cursor-pointer"
+                                    onClick={() =>
+                                      changeStatus(_id, "Deactive")
+                                    }
+                                  >
+                                    <span className="text-green-600">
+                                      Active
+                                    </span>
+                                    <br />
+                                    Deactivate
+                                  </div>
+                                ) : (
+                                  <div
+                                    className="text-green-600 cursor-pointer"
+                                    onClick={() => changeStatus(_id, "Active")}
+                                  >
+                                    <span className="text-red-600">
+                                      Deactive
+                                    </span>
+                                    <br />
+                                    <span className="text-green-600">
+                                      Activate
+                                    </span>
+                                  </div>
+                                )}
                               </td>
                             </tr>
                           );

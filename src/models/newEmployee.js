@@ -32,6 +32,12 @@ const newEmployeeSchema = new Schema(
       type: String,
       required: true,
     },
+
+    status: {
+      type: String,
+      enum: ["Active", "Deactive"],
+      default: "Active", // Default value for the 'role' field if not specified during document creation
+    },
   },
   { timestamps: true }
 );
