@@ -80,9 +80,7 @@ const AddEmployee = () => {
       const responseData = await res.json();
       const { message, error } = responseData;
 
-      if (error) {
-        toast.error(error);
-      } else {
+      {
         toast.success(message);
         router.push("/");
       }
@@ -215,6 +213,7 @@ const AddEmployee = () => {
             <div>
               <button
                 type="submit"
+                onClick={onSubmit}
                 disabled={loading}
                 className="bg-gray-100 hover:bg-gray-200 w-full py-1.5 border border-gray-400 rounded-md font-medium mb-5"
               >
