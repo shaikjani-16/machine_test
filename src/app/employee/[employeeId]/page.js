@@ -239,6 +239,7 @@ const EditEmployee = ({ params }) => {
             <button
               type="submit"
               disabled={loading}
+              onClick={onSubmit}
               className="bg-gray-100 hover:bg-gray-200 w-full py-1.5 border rounded-md"
             >
               {loading ? "Updating..." : "Update"}
