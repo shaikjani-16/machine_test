@@ -1,5 +1,5 @@
 import { connectDb } from "@/database/db";
-import { Employee } from "@/models/Employee";
+
 import { NextResponse } from "next/server";
 import { NewEmployee } from "@/models/newEmployee";
 
