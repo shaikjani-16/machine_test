@@ -63,7 +63,7 @@ const AddEmployee = () => {
         imageId = await uploadFile(formData);
       }
 
-      const res = await fetch(`${process.env.BASE_URL}/api/employee`, {
+      const res = await fetch(`/api/employee`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

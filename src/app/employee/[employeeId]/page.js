@@ -50,13 +50,10 @@ const EditEmployee = ({ params }) => {
   // Fetch Employee Data
   const fetchEmployee = async () => {
     try {
-      const res = await fetch(
-        `${process.env.BASE_URL}/api/employee/${employeeId}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`/api/employee/${employeeId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await res.json();
       const employee = data.employee;
 
@@ -94,22 +91,19 @@ const EditEmployee = ({ params }) => {
         imageId = await uploadFile(formData);
       }
 
-      const res = await fetch(
-        `${process.env.BASE_URL}/api/employee/${employeeId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            mobile: String(data.mobile), // Ensure mobile is a string
-            designation: data.designation,
-            gender: data.gender,
-            course: data.course[0],
-            imageId,
-          }),
-        }
-      );
+      const res = await fetch(`/api/employee/${employeeId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          mobile: String(data.mobile), // Ensure mobile is a string
+          designation: data.designation,
+          gender: data.gender,
+          course: data.course[0],
+          imageId,
+        }),
+      });
 
       const responseData = await res.json();
       if (responseData.error) {

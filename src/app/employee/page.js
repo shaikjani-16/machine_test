@@ -14,7 +14,7 @@ const EmployeeList = () => {
   const getEmployeeList = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${process.env.BASE_URL}/api/employee`, {
+      const res = await fetch(`/api/employee`, {
         method: "GET",
       });
       const data = await res.json();
@@ -29,7 +29,7 @@ const EmployeeList = () => {
 
   const deleteEmployee = async (_id) => {
     try {
-      const res = await fetch(`${process.env.BASE_URL}/api/employee/${_id}`, {
+      const res = await fetch(`/api/employee/${_id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
