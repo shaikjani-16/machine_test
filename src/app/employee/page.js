@@ -14,12 +14,9 @@ const EmployeeList = () => {
   const getEmployeeList = async () => {
     try {
       setLoading(true);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/employee`,
-        {
-          method: "GET",
-        }
-      );
+      const res = await fetch(`${process.env.BASE_URL}/api/employee`, {
+        method: "GET",
+      });
       const data = await res.json();
       setEmployee(data);
       setFilteredEmployee(data); // Set filtered employee list initially to all employees
@@ -32,15 +29,12 @@ const EmployeeList = () => {
 
   const deleteEmployee = async (_id) => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/employee/${_id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(`${process.env.BASE_URL}/api/employee/${_id}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
       const data = await res.json();
       const { message, error } = data;
 

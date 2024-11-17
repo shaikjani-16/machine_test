@@ -63,22 +63,19 @@ const AddEmployee = () => {
         imageId = await uploadFile(formData);
       }
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/employee`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            mobile: data.mobile,
-            designation: data.designation,
-            gender: data.gender,
-            course: data.course[0],
-            imageId,
-          }),
-        }
-      );
+      const res = await fetch(`${process.env.BASE_URL}/api/employee`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          mobile: data.mobile,
+          designation: data.designation,
+          gender: data.gender,
+          course: data.course[0],
+          imageId,
+        }),
+      });
 
       const responseData = await res.json();
       const { message, error } = responseData;
